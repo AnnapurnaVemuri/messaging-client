@@ -38,7 +38,8 @@ public abstract class AbstractMessagePublisher implements MessagePublisher {
     if (m == null) {
       throw new IllegalArgumentException("Cannot publish null message");
     }
-    synchronized(this){
+    // initialization should happen only by one thread
+    synchronized (this) {
       if (getStats(topicName) == null) {
         TimingAccumulator stats = new TimingAccumulator();
         initTopicStats(topicName, stats);
